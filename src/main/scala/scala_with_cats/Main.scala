@@ -1,4 +1,4 @@
-package scala-with-cats
+package scala_with_cats
 
 import cats.instances.string._
 import cats.syntax.semigroup._
