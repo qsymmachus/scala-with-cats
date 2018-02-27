@@ -1,5 +1,7 @@
 package scala_with_cats.printable
 
+import scala_with_cats.Cat
+
 // 1. Type class
 trait Printable[A] {
   def format(value: A): String
@@ -15,6 +17,17 @@ object PrintableInstances {
   implicit val intPrinter: Printable[Int] =
     new Printable[Int] {
       def format(int: Int) = int.toString
+    }
+
+  implicit val catPrinter: Printable[Cat] = 
+    new Printable[Cat] {
+      def format(cat: Cat) = {
+        val name = cat.name
+        val age = cat.age
+        val color = cat.color
+
+        s"$name is a $age year-old $color cat."
+      }
     }
 }
 
