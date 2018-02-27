@@ -31,12 +31,29 @@ object PrintableInstances {
     }
 }
 
-// 3. Type interface (using an interface object)
+// 3a. Type interface (using an interface object)
 object Printable {
   def format[A](value: A)(implicit p: Printable[A]): String =
     p.format(value)
 
   def print[A](value: A)(implicit p: Printable[A]): Unit = 
     println(format(value))
+}
+
+
+// 3b. Type interface (using extension methods)
+// 
+// Allows you to do this:
+//
+//   cat.print
+//
+object PrintableSyntax {
+  implicit class PrintableOps[A](value: A) {
+    def format(implicit p: Printable[A]): String =
+      p.format(value)
+
+    def print(implicit p: Printable[A]): Unit =
+      println(p.format(value))
+  }
 }
 
