@@ -1,4 +1,4 @@
-package scala_with_cats
+package scala_with_cats.printable
 
 // 1. Type class
 trait Printable[A] {
@@ -7,12 +7,12 @@ trait Printable[A] {
 
 // 2. Type instances
 object PrintableInstances {
-  val stringPrinter: Printable[String] =
+  implicit val stringPrinter: Printable[String] =
     new Printable[String] {
       def format(string: String) = string
     }
 
-  val intPrinter: Printable[Int] =
+  implicit val intPrinter: Printable[Int] =
     new Printable[Int] {
       def format(int: Int) = int.toString
     }
@@ -24,6 +24,6 @@ object Printable {
     p.format(value)
 
   def print[A](value: A)(implicit p: Printable[A]): Unit = 
-    println(p.format(value))
+    println(format(value))
 }
 
