@@ -1,8 +1,9 @@
 package scala_with_cats
 
-import cats.instances.string._
-import cats.syntax.semigroup._
+import scala_with_cats.printable.Printable
+import scala_with_cats.printable.PrintableInstances._
 
 object Main extends App {
-  println("Hello " |+| "Cats!")
+  Printable.print(1)
 }
+
