@@ -1,6 +1,6 @@
 package scala_with_cats.printable
 
-import scala_with_cats.Cat
+import scala_with_cats.cat.Cat
 
 // 1. Type class
 trait Printable[A] {
