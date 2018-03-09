@@ -1,6 +1,7 @@
 package scala_with_cats.cat
 
 import cats._
+import cats.implicits._
 
 final case class Cat(name: String, age: Int, color: String)
 
