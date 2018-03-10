@@ -2,12 +2,21 @@ package scala_with_cats.printable
 
 import scala_with_cats.cat.Cat
 
-// 1. Type class
+/** 1. Type class */
 trait Printable[A] {
+  self =>
+
   def format(value: A): String
+
+  /** Contramap! See "Scala with Cats" 3.6.1 */
+  def contramap[B](func: B => A): Printable[B] =
+    new Printable[B] {
+      def format(value: B): String =
+        self.format(func(value))
+    }
 }
 
-// 2. Type instances
+/** 2. Type instances */
 object PrintableInstances {
   implicit val stringPrinter: Printable[String] =
     new Printable[String] {
@@ -31,7 +40,7 @@ object PrintableInstances {
     }
 }
 
-// 3a. Type interface (using an interface object)
+/** 3a. Type interface (using an interface object) */
 object Printable {
   def format[A](value: A)(implicit p: Printable[A]): String =
     p.format(value)
@@ -41,12 +50,13 @@ object Printable {
 }
 
 
-// 3b. Type interface (using extension methods)
-// 
-// Allows you to do this:
-//
-//   cat.print
-//
+/** 
+ *  3b. Type interface (using extension methods)
+ *
+ *  Allows you to do this:
+ *
+ *    cat.print
+ */
 object PrintableSyntax {
   implicit class PrintableOps[A](value: A) {
     def format(implicit p: Printable[A]): String =
