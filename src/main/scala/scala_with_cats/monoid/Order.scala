@@ -5,6 +5,7 @@ import cats._
 case class Order(totalCost: Double, quantity: Double)
 
 object Order {
+  /** Order monoid, allows you to combine orders. */
   implicit val orderMonoid: Monoid[Order] =
     new Monoid[Order] {
       def combine(a: Order, b: Order): Order =
