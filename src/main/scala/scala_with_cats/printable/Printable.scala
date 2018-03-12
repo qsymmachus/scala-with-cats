@@ -1,5 +1,6 @@
 package scala_with_cats.printable
 
+import scala_with_cats.box.Box
 import scala_with_cats.cat.Cat
 
 /** 1. Type class */
@@ -38,6 +39,9 @@ object PrintableInstances {
         s"$name is a $age year-old $color cat."
       }
     }
+
+  implicit def boxPrintable[A](implicit p: Printable[A]) = 
+    p.contramap[Box[A]](_.value)
 }
 
 /** 3a. Type interface (using an interface object) */
